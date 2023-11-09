@@ -1,6 +1,25 @@
+import { useEffect, useState } from "react";
 import RecomendedQuiz from "./RecomendedQuiz";
+import { RecomendedQuizModel } from "../../../models/RecomendedQuizModel";
+import { error } from "console";
 
 const Carousel = () => {
+  const [quiz, setQuiz] = useState<RecomendedQuizModel[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [httpError, setHttpError] = useState(null);
+  /*
+  useEffect(() => {
+    const fetchQuizzes =async () => {
+      const response = await fetch("")
+    }
+    fetchBooks().catch((error: any) => {
+      setIsLoading(false);
+      setHttpError(error.message)
+    })
+  }, [])
+
+  */
+
   return (
     <div className="container mt-5" style={{ height: 550 }}>
       <div className="homepage-carousel-title">
