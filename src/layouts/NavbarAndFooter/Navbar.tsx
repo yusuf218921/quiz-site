@@ -17,26 +17,26 @@ export const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarNavDropdown">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <a className="nav-link px-2 text-white" href="#">
+              <a className="nav-link px-2 text-white" href="/">
                 {" "}
                 Ana Sayfa
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link px-2 text-white" href="#">
+              <a className="nav-link px-2 text-white" href="/leader-table">
                 {" "}
                 Liderlik Tablosu
               </a>
             </li>
             <li className="nav-item">
-              <a href="#" className="nav-link px-2 text-white">
+              <a href="/search" className="nav-link px-2 text-white">
                 Quiz Ara
               </a>
             </li>
           </ul>
           <ul className="navbar-nav ms-auto">
             <li className="nav-item m-1">
-              <a type="button" className="btn btn-outline-light" href="#">
+              <a type="button" className="btn btn-outline-light" href="/login">
                 Giriş Yap
               </a>
             </li>

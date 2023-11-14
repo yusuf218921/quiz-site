@@ -8,17 +8,17 @@ export const Footer = () => {
         <p className="col-md-4 mb-0 text-white">© Bigbox Quizle, Inc</p>
         <ul className="nav navbar-dark col-md-4 justify-content-end">
           <li className="nav-item">
-            <a href="#" className="nav-link px-2 text-white">
+            <a href="/" className="nav-link px-2 text-white">
               Ana Sayfa
             </a>
           </li>
           <li className="nav-item">
-            <a href="#" className="nav-link px-2 text-white">
+            <a href="/leader-table" className="nav-link px-2 text-white">
               Liderlik Tablosu
             </a>
           </li>
           <li className="nav-item">
-            <a href="#" className="nav-link px-2 text-white">
+            <a href="/search" className="nav-link px-2 text-white">
               Quiz Ara
             </a>
           </li>

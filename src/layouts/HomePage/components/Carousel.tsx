@@ -1,24 +1,56 @@
 import { useEffect, useState } from "react";
 import RecomendedQuiz from "./RecomendedQuiz";
 import { RecomendedQuizModel } from "../../../models/RecomendedQuizModel";
-import { error } from "console";
-
 const Carousel = () => {
   const [quiz, setQuiz] = useState<RecomendedQuizModel[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [httpError, setHttpError] = useState(null);
-  /*
-  useEffect(() => {
-    const fetchQuizzes =async () => {
-      const response = await fetch("")
-    }
-    fetchBooks().catch((error: any) => {
-      setIsLoading(false);
-      setHttpError(error.message)
-    })
-  }, [])
 
-  */
+  useEffect(() => {
+    const fetchQuizzes = async () => {
+      const response = await fetch(
+        "http://localhost:29722/api/RecomendedQuizzes/getrecomendedquizzes"
+      );
+
+      if (!response.ok) {
+        throw new Error("Something went wrong!");
+      }
+      const responseJson = await response.json();
+
+      const quizzes: RecomendedQuizModel[] = [];
+
+      for (const key in responseJson) {
+        quizzes.push({
+          id: responseJson[key].recomendedQuizID,
+          quizName: responseJson[key].quizName,
+          quizImgUrl: responseJson[key].quizImgUrl,
+        });
+      }
+
+      setQuiz(quizzes);
+      setIsLoading(false);
+    };
+    fetchQuizzes().catch((error: any) => {
+      setIsLoading(false);
+      setHttpError(error.message);
+    });
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className="container m-5">
+        <p>Yükleniyor...</p>
+      </div>
+    );
+  }
+
+  if (httpError) {
+    return (
+      <div className="container m-5">
+        <p>{httpError}</p>
+      </div>
+    );
+  }
 
   return (
     <div className="container mt-5" style={{ height: 550 }}>
@@ -35,23 +67,23 @@ const Carousel = () => {
         <div className="carousel-inner">
           <div className="carousel-item active">
             <div className="row d-flex justify-content-center align-items-center">
-              <RecomendedQuiz />
-              <RecomendedQuiz />
-              <RecomendedQuiz />
+              {quiz.slice(0, 3).map((quiz) => (
+                <RecomendedQuiz quiz={quiz} key={quiz.id} />
+              ))}
             </div>
           </div>
           <div className="carousel-item">
             <div className="row d-flex justify-content-center align-items-center">
-              <RecomendedQuiz />
-              <RecomendedQuiz />
-              <RecomendedQuiz />
+              {quiz.slice(3, 6).map((quiz) => (
+                <RecomendedQuiz quiz={quiz} key={quiz.id} />
+              ))}
             </div>
           </div>
           <div className="carousel-item">
             <div className="row d-flex justify-content-center align-items-center">
-              <RecomendedQuiz />
-              <RecomendedQuiz />
-              <RecomendedQuiz />
+              {quiz.slice(6, 9).map((quiz) => (
+                <RecomendedQuiz quiz={quiz} key={quiz.id} />
+              ))}
             </div>
           </div>
           <button
@@ -84,9 +116,7 @@ const Carousel = () => {
       {/* Mobile */}
       <div className="d-lg-none mt-3">
         <div className="row d-flex justify-content-center align-items-center">
-          <RecomendedQuiz />
-          <RecomendedQuiz />
-          <RecomendedQuiz />
+          <RecomendedQuiz quiz={quiz[7]} key={quiz[7].id} />
         </div>
       </div>
     </div>

@@ -11,7 +11,7 @@ export const QuizServices = () => {
             çekinme.
           </p>
           <div className="d-grid gap-2 justify-content-md-start mb-4 mb-lg-3">
-            <a className="btn btn-dark btn-lg text-white" href="#">
+            <a className="btn btn-dark btn-lg text-white" href="/login">
               Kayıt ol
             </a>
           </div>

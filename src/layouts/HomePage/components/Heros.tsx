@@ -17,7 +17,7 @@ export const Heros = () => {
                   ölçebilirsin. O halde ne duruyorsun, hemen kayıt ol!
                 </strong>
               </p>
-              <a className="btn btn-dark btn-lg text-white" href="#">
+              <a className="btn btn-dark btn-lg text-white" href="/login">
                 Kayıt Ol
               </a>
             </div>
@@ -58,7 +58,11 @@ export const Heros = () => {
                 sorulardan oluşan kendine özel quizle genel kültür seviyeni
                 ölçebilirsin. O halde ne duruyorsun, hemen kayıt ol!
               </strong>
-              <a className="btn btn-dark btn-lg text-white" href="#">
+              <a
+                className="btn btn-dark btn-sm text-white"
+                style={{ display: "block" }}
+                href="/login"
+              >
                 Kayıt Ol
               </a>
             </div>
