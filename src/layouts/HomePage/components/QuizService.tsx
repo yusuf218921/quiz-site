@@ -1,4 +1,5 @@
 export const QuizServices = () => {
+  const token = localStorage.getItem("token");
   return (
     <div className="container my-5">
       <div className="row p-4 align-items-center border shadow-lg">
@@ -11,9 +12,15 @@ export const QuizServices = () => {
             çekinme.
           </p>
           <div className="d-grid gap-2 justify-content-md-start mb-4 mb-lg-3">
-            <a className="btn btn-dark btn-lg text-white" href="/register">
-              Kayıt ol
-            </a>
+            {token ? (
+              <a className="btn btn-dark btn-lg text-white" href="/register">
+                Mesaj Gönder
+              </a>
+            ) : (
+              <a className="btn btn-dark btn-lg text-white" href="/register">
+                Kayıt ol
+              </a>
+            )}
           </div>
         </div>
         <div className="col-lg-4 offset-lg-1 shadow-lg lost-image"></div>

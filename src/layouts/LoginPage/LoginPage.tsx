@@ -11,13 +11,10 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // localStorage'dan token'u al
     const token = localStorage.getItem("token");
 
-    // Token varsa ana sayfada kal
-    // Token yoksa giriş sayfasına yönlendir
     if (token) {
-      navigate("/"); // '/giris' yerine kendi giriş sayfasının yolunu belirtin
+      navigate("/");
     }
   }, []);
 
@@ -35,6 +32,7 @@ const LoginPage = () => {
       const responseData = await response.json();
       const token = responseData.token;
       localStorage.setItem("token", token);
+      navigate("/");
     } else {
       showPopup("login-popup");
       setTimeout(() => showPopup("hide"), 3000);

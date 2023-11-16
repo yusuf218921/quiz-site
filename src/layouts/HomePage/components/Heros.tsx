@@ -1,4 +1,5 @@
 export const Heros = () => {
+  const token = localStorage.getItem("token");
   return (
     <div>
       <div className="d-none d-lg-block">
@@ -17,9 +18,19 @@ export const Heros = () => {
                   ölçebilirsin. O halde ne duruyorsun, hemen kayıt ol!
                 </strong>
               </p>
-              <a className="btn btn-dark btn-lg text-white" href="/register">
-                Kayıt Ol
-              </a>
+              {token ? (
+                <a
+                  type="button"
+                  className="btn btn-dark btn-lg text-white font-alev"
+                  href="#"
+                >
+                  Quizle
+                </a>
+              ) : (
+                <a className="btn btn-dark btn-lg text-white" href="/register">
+                  Kayıt Ol
+                </a>
+              )}
             </div>
           </div>
         </div>
