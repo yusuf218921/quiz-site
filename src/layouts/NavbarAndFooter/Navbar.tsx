@@ -1,4 +1,17 @@
+import { useEffect, useState } from "react";
+
 export const Navbar = () => {
+  const [token, setToken] = useState(localStorage.getItem("token"));
+
+  const deleteToken = () => {
+    localStorage.removeItem("token");
+  };
+
+  useEffect(() => {
+    // Her token değiştiğinde burası çalışır
+    const updatedToken = localStorage.getItem("token");
+    setToken(updatedToken);
+  }, [token]);
   return (
     <nav className="navbar navbar-expand-lg navbar-dark dark py-3">
       <div className="container-fluid">
@@ -36,9 +49,25 @@ export const Navbar = () => {
           </ul>
           <ul className="navbar-nav ms-auto">
             <li className="nav-item m-1">
-              <a type="button" className="btn btn-outline-light" href="/login">
-                Giriş Yap
-              </a>
+              {token ? (
+                <a
+                  type="button"
+                  className="btn btn-outline-light"
+                  href="/"
+                  onClick={deleteToken}
+                >
+                  Çıkış Yap
+                </a>
+              ) : (
+                <a
+                  type="button"
+                  className="btn btn-outline-light"
+                  href="/login"
+                >
+                  Giriş Yap
+                </a>
+              )}
+              as
             </li>
           </ul>
         </div>

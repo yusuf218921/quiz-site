@@ -17,7 +17,7 @@ export const Heros = () => {
                   ölçebilirsin. O halde ne duruyorsun, hemen kayıt ol!
                 </strong>
               </p>
-              <a className="btn btn-dark btn-lg text-white" href="/login">
+              <a className="btn btn-dark btn-lg text-white" href="/register">
                 Kayıt Ol
               </a>
             </div>
@@ -61,7 +61,7 @@ export const Heros = () => {
               <a
                 className="btn btn-dark btn-sm text-white"
                 style={{ display: "block" }}
-                href="/login"
+                href="/register"
               >
                 Kayıt Ol
               </a>

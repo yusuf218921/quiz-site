@@ -4,7 +4,7 @@
 
 .header {
   background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-    url("./Images/PublicImages/Ateşle.jpg");
+    url("https://wallpaperset.com/w/full/2/a/2/56408.jpg");
   opacity: var(--mainOpacity);
   height: 25em !important;
 }
@@ -23,17 +23,17 @@
 }
 
 .col-image-left {
-  background-image: url("./Images/PublicImages/image-4.jpg");
+  background-image: url("./Images/Adsız2.png");
   height: 25em !important;
 }
 
 .col-image-right {
-  background-image: url("./Images/PublicImages/image-1.jpg");
+  background-image: url("https://images.indianexpress.com/2022/11/feature-image-netflix-triviaverse-quiz-game.jpg");
   height: 25em !important;
 }
 
 .lost-image {
-  background-image: url("./Images/PublicImages/image-3.jpg");
+  background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkySnEKUFaI-rLH9ypFDriHoB_TNZmjB9owG3aghLZ00R7gnOFdfW2ASI3QFqXXqxxFfg&usqp=CAU");
   height: 25em !important;
   width: "720";
 }

@@ -6,6 +6,7 @@ import { SpinnerLoading } from "../Utils/SpinnerLoading";
 import CategoryModel from "../../models/CategoryModel";
 import { error } from "console";
 import { Pagination } from "../Utils/Pagination";
+import { Navbar } from "../NavbarAndFooter/Navbar";
 
 const SearchQuizPage = () => {
   const [quiz, setQuiz] = useState<QuizModel[]>([]);
@@ -16,12 +17,20 @@ const SearchQuizPage = () => {
   const [quizPerPage] = useState(5);
   const [totalAmountOfQuizzes, setTotalAmountOfQuizzes] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
+  const [searchUrl, setSearchUrl] = useState("");
+  const [categorySelection, setCategorySelection] = useState(0);
   useEffect(() => {
     const fetchQuizzes = async () => {
-      const baseUrl: string =
-        "http://localhost:29722/api/Quizzes/getallquizzeswithpage";
+      const baseUrl: string = "http://localhost:29722/api/Quizzes";
 
-      const url: string = `${baseUrl}?page=${currentPage}&pageSize=${quizPerPage}`;
+      let url: string = "";
+
+      if (searchUrl === "") {
+        url = `${baseUrl}/getallquizzeswithpage?page=${currentPage}&pageSize=${quizPerPage}`;
+      } else {
+        url = baseUrl + searchUrl;
+      }
+
       const response = await fetch(url);
 
       if (!response.ok) {
@@ -52,7 +61,7 @@ const SearchQuizPage = () => {
       setHttpError(error.message);
     });
     window.scrollTo(0, 0);
-  }, [currentPage]);
+  }, [currentPage, searchUrl]);
 
   useEffect(() => {
     const fetchCategory = async () => {
@@ -97,6 +106,18 @@ const SearchQuizPage = () => {
     );
   }
 
+  const categoryField = (categoryId: number) => {
+    if (categoryId !== 0) {
+      setCategorySelection(categoryId);
+      setSearchUrl(
+        `/getquizwithpagebycategoryid?categoryId=${categoryId}&page=${currentPage}&pageSize=${quizPerPage}`
+      );
+    } else {
+      setCategorySelection(0);
+      setSearchUrl("");
+    }
+  };
+
   const indexOfLastQuiz: number = currentPage * quizPerPage;
   const indexOfFirstQuiz: number = indexOfLastQuiz - quizPerPage;
   let lastItem =
@@ -107,62 +128,50 @@ const SearchQuizPage = () => {
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
   return (
     <div>
-      <div className="container">
-        <div>
-          <div className="row mt-5">
-            <div className="col-6">
-              <div className="d-flex">
-                <input
-                  className="form-control me-2"
-                  type="search"
-                  placeholder="Search"
-                  aria-labelledby="Search"
-                />
-                <button className="btn btn-outline-success">Search</button>
-              </div>
-            </div>
-            <div className="col-4">
-              <div className="dropdown">
-                <button
-                  className="btn btn-secondary dropdown-toggle"
-                  type="button"
-                  id="dropdownMenuButton1"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Kategoriler
-                </button>
-                <ul
-                  className="dropdown-menu"
-                  aria-labelledby="dropdownMenuButton1"
-                >
-                  {categories.map((category) => (
-                    <li>
-                      <a className="dropdown-item" href="#" key={category.id}>
-                        {category.categoryName}
-                      </a>
-                    </li>
+      <Navbar />
+      <div>
+        <div className="container">
+          <div>
+            <div className="row mt-5">
+              <div className="col-12">
+                <nav className="navbar navbar-dark bg-dark">
+                  <a
+                    className="navbar-brand ms-2"
+                    onClick={() => categoryField(0)}
+                    href="#"
+                  >
+                    Hepsi
+                  </a>
+                  {categories.map((c) => (
+                    <a
+                      className="navbar-brand ms-2"
+                      onClick={() => categoryField(c.id)}
+                      href="#"
+                      key={c.id}
+                    >
+                      {c.categoryName}
+                    </a>
                   ))}
-                </ul>
+                </nav>
               </div>
             </div>
+            <div className="mt-3">
+              <h5>Toplam Sonuç ({totalAmountOfQuizzes})</h5>
+            </div>
+            <p>
+              {indexOfFirstQuiz + 1} ile {indexOfLastQuiz} arası
+            </p>
+            {quiz.map((quiz) => (
+              <SearchQuiz quiz={quiz} key={quiz.id} />
+            ))}
+            {totalPages > 1 && (
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                paginate={paginate}
+              />
+            )}
           </div>
-          <div className="mt-3">
-            <h5>Toplam Sonuç ({totalAmountOfQuizzes})</h5>
-          </div>
-          <p>
-            {indexOfFirstQuiz + 1} ile {indexOfLastQuiz} arası
-          </p>
-          {quiz.map((quiz) => (
-            <SearchQuiz quiz={quiz} key={quiz.id} />
-          ))}
-          {totalPages > 1 && (
-            <Pagination
-              currentPage={currentPage}
-              totalPages={totalPages}
-              paginate={paginate}
-            />
-          )}
         </div>
       </div>
     </div>

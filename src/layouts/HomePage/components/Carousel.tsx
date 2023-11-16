@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import RecomendedQuiz from "./RecomendedQuiz";
 import { RecomendedQuizModel } from "../../../models/RecomendedQuizModel";
+import { SpinnerLoading } from "../../Utils/SpinnerLoading";
 const Carousel = () => {
   const [quiz, setQuiz] = useState<RecomendedQuizModel[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -39,7 +40,7 @@ const Carousel = () => {
   if (isLoading) {
     return (
       <div className="container m-5">
-        <p>Yükleniyor...</p>
+        <SpinnerLoading />
       </div>
     );
   }

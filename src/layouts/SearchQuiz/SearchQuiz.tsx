@@ -8,9 +8,9 @@ export const SearchQuiz: React.FC<{ quiz: QuizModel }> = (props) => {
           <div className="d-none d-lg-block">
             <img
               src={props.quiz.quizImgUrl}
-              width="123"
+              width="190"
               height="196"
-              alt="Book"
+              alt="Quiz"
             />
           </div>
           <div
@@ -19,9 +19,9 @@ export const SearchQuiz: React.FC<{ quiz: QuizModel }> = (props) => {
           >
             <img
               src={props.quiz.quizImgUrl}
-              width="123"
+              width="190"
               height="196"
-              alt="Book"
+              alt="Quiz"
             />
           </div>
         </div>
