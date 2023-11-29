@@ -8,6 +8,7 @@ import SearchQuizPage from "./layouts/SearchQuiz/SearchQuizPage";
 import { Navbar } from "./layouts/NavbarAndFooter/Navbar";
 import LoginPage from "./layouts/LoginPage/LoginPage";
 import RegisterPage from "./layouts/RegisterPage/RegisterPage";
+import QuizPage from "./layouts/QuizPage/QuizPage";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/search" element={<SearchQuizPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/quiz/:quizId" element={<QuizPage />} />
         </Routes>
       </div>
       <Footer />

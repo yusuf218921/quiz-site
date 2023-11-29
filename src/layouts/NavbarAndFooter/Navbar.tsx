@@ -67,7 +67,6 @@ export const Navbar = () => {
                   Giriş Yap
                 </a>
               )}
-              as
             </li>
           </ul>
         </div>
