@@ -83,9 +83,9 @@ const QuizPage = () => {
   }
 
   return (
-    <div className="quiz-page">
+    <div>
       <Navbar />
-      <div className="body-quiz">
+      <div className="body-quiz quiz-page">
         <div className="app">
           {showScore ? (
             <div className="score-section">

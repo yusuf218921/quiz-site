@@ -19,7 +19,7 @@ function App() {
           <Route path="/search" element={<SearchQuizPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/quiz/:quizId" element={<QuizPage />} />
+          {/* <Route path="/quiz/:quizId" element={<QuizPage />} /> */}
         </Routes>
       </div>
       <Footer />
