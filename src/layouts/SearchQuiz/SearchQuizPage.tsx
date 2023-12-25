@@ -37,8 +37,8 @@ const SearchQuizPage = () => {
         throw new Error("Bir Şeyler Ters Gitti");
       }
       const responseJson = await response.json();
-      setTotalAmountOfQuizzes(9);
-      setTotalPages(2);
+      setTotalAmountOfQuizzes(11);
+      setTotalPages(3);
 
       const quizzes: QuizModel[] = [];
 

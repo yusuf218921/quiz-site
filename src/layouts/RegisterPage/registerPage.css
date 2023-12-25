@@ -53,7 +53,7 @@
   background-image: url("./../../Images/PublicImages/facebook.png");
 }
 
-input {
+.cover input {
   border: none;
   background-color: rgb(229, 226, 226);
   height: 4em;
@@ -63,7 +63,7 @@ input {
   padding: 2em;
 }
 
-input:focus {
+.cover input:focus {
   outline-color: rgb(32, 177, 255);
 }
 

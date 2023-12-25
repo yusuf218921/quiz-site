@@ -32,7 +32,17 @@ const LoginPage = () => {
       const responseData = await response.json();
       const token = responseData.token;
       localStorage.setItem("token", token);
-      navigate("/");
+      const decodedToken = JSON.parse(atob(token.split(".")[1]));
+      // JWT içindeki rolleri al
+      const roles =
+        decodedToken[
+          "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+        ] || [];
+      if (roles.includes("admin")) {
+        navigate("/adminpanel");
+      } else {
+        navigate("/");
+      }
     } else {
       showPopup("login-popup");
       setTimeout(() => showPopup("hide"), 3000);
