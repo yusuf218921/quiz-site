@@ -63,9 +63,9 @@ const AddQuiz = () => {
 
     if (response.ok) {
       const responseData = await response.json();
-      alert(responseData);
+      alert(responseData.message);
     } else {
-      alert("eklenemedi");
+      alert((await response.text()).valueOf());
     }
   };
 

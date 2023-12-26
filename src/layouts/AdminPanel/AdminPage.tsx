@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import CategoryModel from "../../models/CategoryModel";
 import AddQuiz from "./components/AddQuiz";
 import AddQuestion from "./components/AddQuestion";
+import AddOption from "./components/AddOption";
 
 const AdminPanel = () => {
   const token = localStorage.getItem("token");
@@ -43,6 +43,7 @@ const AdminPanel = () => {
         <h1 className="border-bottom border-5">Admin Panel</h1>
         <AddQuiz />
         <AddQuestion />
+        <AddOption />
       </div>
     );
   } else {

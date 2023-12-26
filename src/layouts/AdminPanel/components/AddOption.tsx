@@ -1,70 +1,119 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const AddOption = () => {
+  const token = localStorage.getItem("token");
   const [optionText, setOptionText] = useState("");
   const [isCorrect, setIsCorrect] = useState(false);
-  const [questionData, setQuestionData] = useState<questionData[]>([]);
+  const [questionData, setQuestionData] = useState<QuestionData[]>([]);
+  const [questionId, setQuestionId] = useState(-1);
+  const [httpError, setHttpError] = useState(null);
 
-  interface questionData {
+  interface QuestionData {
     questionId: number;
     questionText: string;
   }
+
+  useEffect(() => {
+    const fetchQuestion = async () => {
+      const questionData: QuestionData[] = [];
+      const response = await fetch(
+        "http://localhost:29722/api/Questions/getallquestions"
+      );
+
+      if (!response.ok) {
+        throw new Error("Bir Şeyler Ters Gitti");
+      }
+
+      const responseJson = await response.json();
+
+      for (const key in responseJson) {
+        questionData.push({
+          questionId: responseJson[key].questionID,
+          questionText: responseJson[key].text,
+        });
+      }
+
+      console.log(questionData);
+      setQuestionData(questionData);
+    };
+    fetchQuestion().catch((error: any) => {
+      setHttpError(error.message);
+    });
+  }, []);
+
+  const fetchOption = async () => {
+    const optionData = {
+      questionId: questionId,
+      optionText: optionText,
+      isCorrect: isCorrect,
+    };
+
+    console.log(optionData);
+    const response = await fetch(
+      "http://localhost:29722/api/Options/addoption",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(optionData),
+      }
+    );
+
+    if (response.ok) {
+      const responseData = await response.json();
+      alert(responseData.message);
+    } else {
+      alert((await response.text()).valueOf());
+    }
+  };
   return (
     <form>
-      <h3 className="mt-5">Quiz Soru Ekleme</h3>
+      <h3 className="mt-5">Quiz Option Ekleme</h3>
       <div className="mb-3">
-        <label htmlFor="questionText" className="form-label">
-          Question Text
+        <label htmlFor="optionText" className="form-label">
+          Option Text
         </label>
         <input
-          onChange={(o) => setQuestionText(o.target.value)}
+          onChange={(o) => setOptionText(o.target.value)}
           type="text"
           className="form-control"
-          id="questionText"
-        />
-      </div>
-      <div className="mb-3">
-        <label htmlFor="time" className="form-label">
-          Time
-        </label>
-        <input
-          onChange={(o) => setTime(parseInt(o.target.value))}
-          type="text"
-          className="form-control"
-          id="time"
+          id="optionText"
         />
       </div>
       <div className="mb-3">
         <label htmlFor="select" className="form-label">
-          Quiz
+          Quiz Question
         </label>
         <select
           id="select"
           className="form-select"
           onChange={(o) => {
             console.log(o.target.value);
-            setQuizId(parseInt(o.target.value));
+            setQuestionId(parseInt(o.target.value));
           }}
         >
           <option value={0}>Seçiniz</option>
-          {quizData.map((c) => (
-            <option value={c.quizId}>{c.quizName}</option>
+          {questionData.map((c) => (
+            <option value={c.questionId}>{c.questionText}</option>
           ))}
         </select>
       </div>
       <div className="mb-3">
-        <label htmlFor="status" className="form-label">
-          Status
+        <label htmlFor="isCorrect" className="form-label">
+          isCorrect
         </label>
         <select
-          name="status"
-          id="status"
+          name="isCorrect"
+          id="isCorrect"
           className="form-select"
           onChange={(o) => {
             if (o.target.value === "True") {
-              setStatus(true);
+              console.log("True");
+              setIsCorrect(true);
             } else {
-              setStatus(false);
+              setIsCorrect(false);
             }
           }}
         >
@@ -72,9 +121,11 @@ const AddOption = () => {
           <option>False</option>
         </select>
       </div>
-      <button onClick={fetchQuestion} type="button" className="btn btn-primary">
+      <button onClick={fetchOption} type="button" className="btn btn-primary">
         Ekle
       </button>
     </form>
   );
 };
+
+export default AddOption;

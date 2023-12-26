@@ -62,12 +62,14 @@ const AddQuestion = () => {
         body: JSON.stringify(questionData),
       }
     );
-
+    //const responseData = await response.json();
     if (response.ok) {
-      const responseData = await response.json();
-      alert(responseData);
+      const responseJson = await response.json();
+      alert(responseJson.message);
+      //alert(responseData);
     } else {
-      console.log("eklenemedi");
+      alert((await response.text()).valueOf());
+      //alert(responseData);
     }
   };
 
